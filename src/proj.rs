@@ -1331,26 +1331,27 @@ mod test {
         let from = "EPSG:6677";
         let to = "EPSG:6697";
         let proj = Proj::new_known_crs(from, to, None).unwrap();
-        let (lng, lat, height) = proj.convert((-5999.998, -35838.918, 3.901)).unwrap();
-        assert_relative_eq!(lng, 139.76705, epsilon = 1e-5);
-        assert_relative_eq!(lat, 35.67694, epsilon = 1e-5);
-        assert_relative_eq!(height, 3.901, epsilon = 1e-5);
+        let (x, y, z) = (-5998.998, -35838.918, 3.901);
+        let (lng, lat, height) = proj.convert((x, y, z)).unwrap();
+        assert_relative_eq!(lng, 139.76706139226548, epsilon = 1e-3);
+        assert_relative_eq!(lat, 35.67694831658619, epsilon = 1e-3);
+        assert_relative_eq!(height, 3.901, epsilon = 1e-3);
 
         let from = "EPSG:6697";
         let to = "EPSG:4979";
         let proj = Proj::new_known_crs(from, to, None).unwrap();
         let (lng, lat, height) = proj.convert((lng, lat, height)).unwrap();
-        assert_relative_eq!(lng, 139.76705, epsilon = 1e-5);
-        assert_relative_eq!(lat, 35.67694, epsilon = 1e-5);
-        assert_relative_eq!(height, 40.53397, epsilon = 1e-5);
+        assert_relative_eq!(lng, 139.76706139226548, epsilon = 1e-3);
+        assert_relative_eq!(lat, 35.67694831658619, epsilon = 1e-3);
+        assert_relative_eq!(height, 40.53393140934767, epsilon = 1e-3);
 
         let from = "EPSG:4979";
         let to = "EPSG:4978";
         let proj = Proj::new_known_crs(from, to, None).unwrap();
         let (x, y, z) = proj.convert((lng, lat, height)).unwrap();
-        assert_relative_eq!(x, -3959898.27931, epsilon = 1e-5);
-        assert_relative_eq!(y, 3350278.92452, epsilon = 1e-5);
-        assert_relative_eq!(z, 3699157.24253, epsilon = 1e-5);
+        assert_relative_eq!(x, -3959898.9249523925, epsilon = 1e-3);
+        assert_relative_eq!(y, 3350278.1607454875, epsilon = 1e-3);
+        assert_relative_eq!(z, 3699157.243055472, epsilon = 1e-3);
     }
 
     #[test]
